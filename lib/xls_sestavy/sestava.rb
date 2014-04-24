@@ -1,8 +1,9 @@
-require 'tempfile'
-require 'XLSSestavy/excel_formaty'
-require 'XLSSestavy/excel_tabulky'
-
 # encoding: utf-8
+require 'tempfile'
+require 'xls_sestavy/excel_formaty'
+require 'xls_sestavy/excel_tabulky'
+
+
 module XLSSestavy
   class Sestava
     NAZEV = 'Prázdná sestava'

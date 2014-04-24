@@ -1,3 +1,4 @@
+# encoding: utf-8
 require "xls_sestavy/version"
 require "xls_sestavy/excel_helper"
 
