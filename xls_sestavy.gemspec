@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["zelazk.o@email.cz"]
   spec.description   = %q(Uses writeexcel and puts some helper methods on top for making summaries in xls format)
   spec.summary       = %q(xls simple helper library)
-  spec.homepage      = ""
+  spec.homepage      = "https://github.com/doooby/xls_sestavy"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)
