@@ -5,11 +5,11 @@ require 'xls_sestavy/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "xls_sestavy"
-  spec.version       = XlsSestavy::VERSION
+  spec.version       = XLSSestavy::VERSION
   spec.authors       = ["Ondřej Želazko"]
   spec.email         = ["zelazk.o@email.cz"]
-  spec.description   = %q{TODO: Write a gem description}
-  spec.summary       = %q{TODO: Write a gem summary}
+  spec.description   = %q(Uses writeexcel and puts some helper methods on top for making summaries in xls format)
+  spec.summary       = %q(xls simple helper library)
   spec.homepage      = ""
   spec.license       = "MIT"
 
