@@ -1,3 +1,4 @@
-module XlsSestavy
-  VERSION = "0.0.1"
+module XLSSestavy
+  VERSION = "0.2.0"
+
 end
