@@ -15,7 +15,7 @@ module XLSSestavy
     end
 
     def argumenty_sloupce(arr)
-      arr.map{|a| a.class==Symbol ? send(a) : a}
+      arr.map{|a| (a.class==Symbol && respond_to?(a)) ? send(a) : a}
     end
 
     def to_s
