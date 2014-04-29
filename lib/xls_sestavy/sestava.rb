@@ -14,6 +14,7 @@ module XLSSestavy
     attr_reader :argumenty
 
     def initialize(args={})
+      args[:k_datu] = Date.today unless args[:k_datu]
       @argumenty = ArgumentySestavy.new args
     end
 

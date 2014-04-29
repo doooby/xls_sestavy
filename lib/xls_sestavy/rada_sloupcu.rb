@@ -28,8 +28,6 @@ module XLSSestavy
       index ? @sloupce[index] :nil
     end
 
-    protected
-
     def aktualizuj_seznam
       @seznam = {}
       @sloupce.each_with_index do |s,i|
