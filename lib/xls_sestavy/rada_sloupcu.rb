@@ -10,7 +10,7 @@ module XLSSestavy
       if @sloupce.class!=Array && @sloupce.any?{|s| !s.kind_of? Sloupec}
         raise 'RadaSloupcu musí být inicializovány polem Sloupců'
       end
-      @sloupce.each{|s| s.nastav_argumenty argumenty} if argumenty
+      nastav_argumenty argumenty if argumenty
       @seznam = {}
       aktualizuj_seznam
     end
@@ -21,6 +21,10 @@ module XLSSestavy
       else
         @sloupce << Sloupec.new(*args, &block)
       end
+    end
+
+    def nastav_argumenty(argumenty)
+      @sloupce.each{|s| s.nastav_argumenty argumenty}
     end
 
     def [](klic)
