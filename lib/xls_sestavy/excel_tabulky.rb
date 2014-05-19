@@ -93,7 +93,7 @@ module XLSSestavy
       y_soucty = y+dy+1
       if soucty==:nad || soucty==:nad_pod
         y_soucty += 1
-        vypis_souctovy_radek y+dy, x, sloupce, [y_soucty..y_soucty+objekty.length-1]
+        vypis_souctovy_radek y+dy, x, sloupce, (y_soucty..y_soucty+objekty.length-1)
         dy += 1
       end
       #ukotvit
@@ -117,7 +117,7 @@ module XLSSestavy
       end
       #součty :pod
       if soucty==:pod || soucty==:nad_pod
-        vypis_souctovy_radek y+dy, x, sloupce, [y_soucty..y_soucty+objekty.length-1]
+        vypis_souctovy_radek y+dy, x, sloupce, (y_soucty..y_soucty+objekty.length-1)
         dy += 1
       end
       #případně, když nejsou žádné objekty jenom prázdný součtový řádek
