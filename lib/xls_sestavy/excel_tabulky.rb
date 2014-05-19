@@ -132,7 +132,7 @@ module XLSSestavy
     def vypis_souctovy_radek(y, x, sloupce, rozsah)
       format = get_format :souctovy_radek
       sloupce.each_with_index do |s, i|
-        pismeno = XLSSestavy.sloupec_pismeno x
+        pismeno = XLSSestavy.sloupec_pismeno x+i
         formule = case s.souctovy_radek
                     when :soucet; "SUBTOTAL(9,#{pismeno}#{rozsah.min}:#{pismeno}#{rozsah.max})"
                     when :pocet; "SUBTOTAL(9,#{pismeno}#{rozsah.min}:#{pismeno}#{rozsah.max})"
