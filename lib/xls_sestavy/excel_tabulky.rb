@@ -104,16 +104,32 @@ module XLSSestavy
         next format_dat unless s.format.class==Hash
         alter_format format_dat, s.format
       end
-      objekty.each do |objekt|
-        sloupce.each_with_index do |s, i|
-          hodnota = XLSSestavy.douprav_hodnotu_bunky s.hodnota_pro(objekt)
-          if s.num_format==:cas || s.num_format==:datum
-            @ws.write_date_time y+dy, x+i, hodnota, formaty[i]
-          else
-            @ws.write y+dy, x+i, hodnota, formaty[i]
+      if objekty.class==ActiveRecord::Relation
+        objekty.find_in_batches batch_size: 100 do |batch|
+          batch.each do |objekt|
+            sloupce.each_with_index do |s, i|
+              hodnota = XLSSestavy.douprav_hodnotu_bunky s.hodnota_pro(objekt)
+              if s.num_format==:cas || s.num_format==:datum
+                @ws.write_date_time y+dy, x+i, hodnota, formaty[i]
+              else
+                @ws.write y+dy, x+i, hodnota, formaty[i]
+              end
+            end
+            dy += 1
           end
         end
-        dy += 1
+      else
+        objekty.each do |objekt|
+          sloupce.each_with_index do |s, i|
+            hodnota = XLSSestavy.douprav_hodnotu_bunky s.hodnota_pro(objekt)
+            if s.num_format==:cas || s.num_format==:datum
+              @ws.write_date_time y+dy, x+i, hodnota, formaty[i]
+            else
+              @ws.write y+dy, x+i, hodnota, formaty[i]
+            end
+          end
+          dy += 1
+        end
       end
       #součty :pod
       if soucty==:pod || soucty==:nad_pod
