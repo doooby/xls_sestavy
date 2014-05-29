@@ -20,7 +20,7 @@ module XLSSestavy
 
     def vytvor_soubor
       f = Tempfile.new self.class::NAZEV.gsub(' ','_'), Rails.root.join('tmp')
-      @wb = WriteExcel.new f
+      @wb = ::WriteExcel.new f
       vypracuj_sestavu
       @wb.close
       block_given? ? yield(f) : po_vypracovani(f)

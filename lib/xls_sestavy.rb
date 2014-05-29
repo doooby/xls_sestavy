@@ -9,3 +9,5 @@ require 'xls_sestavy/definice_sloupcu'
 
 require 'xls_sestavy/argumenty_sestavy'
 require 'xls_sestavy/sestava'
+
+require 'writeexcel'
