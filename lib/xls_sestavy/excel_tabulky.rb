@@ -151,7 +151,7 @@ module XLSSestavy
         pismeno = XLSSestavy.sloupec_pismeno x+i
         formule = case s.souctovy_radek
                     when :soucet; "SUBTOTAL(9,#{pismeno}#{rozsah.min}:#{pismeno}#{rozsah.max})"
-                    when :pocet; "SUBTOTAL(9,#{pismeno}#{rozsah.min}:#{pismeno}#{rozsah.max})"
+                    when :pocet; "SUBTOTAL(3,#{pismeno}#{rozsah.min}:#{pismeno}#{rozsah.max})"
                     else
                       @ws.write y, x+i, '', format
                       next
