@@ -2,9 +2,7 @@
 module XLSSestavy
   class Tabulka
 
-    attr_reader :sestava, :sloupce
-
-    def initialize(sestava, args={})
+    def initialize(sestava, args={}, &block)
       @sestava = sestava
       @sloupce = args[:sloupce] || []
       @args = args

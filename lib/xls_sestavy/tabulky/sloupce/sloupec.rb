@@ -43,5 +43,9 @@ module XLSSestavy
       end
     end
 
+    def arg(klic)
+      @args[klic]
+    end
+
   end
 end
