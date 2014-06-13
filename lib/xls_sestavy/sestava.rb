@@ -1,41 +1,44 @@
 # encoding: utf-8
-require 'tempfile'
-require 'xls_sestavy/excel_formaty'
-require 'xls_sestavy/excel_tabulky'
-
+require "xls_sestavy/tabulky/tabulka"
+require "xls_sestavy/tabulky/sloupce/sloupec"
+require "xls_sestavy/tabulky/sloupce/preddefinovany_sloupce"
+require "xls_sestavy/tabulky/sloupce/definice_sloupcu"
 
 module XLSSestavy
   class Sestava
-    NAZEV = 'Prázdná sestava'
 
-    include ExcelTabulky
-    include ExcelFormaty
-
-    attr_reader :argumenty
-
-    def initialize(args={})
-      args[:k_datu] = Date.today unless args[:k_datu]
-      @argumenty = ArgumentySestavy.new args
+    def self.nazev
+      @nazev ||= 'bezejména'
     end
 
-    def vytvor_soubor
-      f = Tempfile.new self.class::NAZEV.gsub(' ','_'), Rails.root.join('tmp')
-      @wb = ::WriteExcel.new f
-      vypracuj_sestavu
-      @wb.close
-      block_given? ? yield(f) : po_vypracovani(f)
+    def self.nastav_nazev(txt)
+      @nazev = txt
     end
 
-    def vypracuj_sestavu; end
+    attr_reader :params
 
-    def po_vypracovani(f); end
-
-    def nazev_souboru
-      to_s + '.xls'
+    def initialize(params)
+      @params = zpracuj_params params
+      @cas_vytvoreni = Time.zone.now
     end
+
+    def zpracuj_params(params)
+      params
+    end
+
+    def zpracuj
+      vypracovani
+      block_given? ? yield : po_vypracovani
+    end
+
+    # přepsáno v podtřídách
+    def vypracovani; end
+
+    # přepsáno v podtřídách
+    def po_vypracovani; end
 
     def to_s
-      "#{self.class::NAZEV.gsub(' ','_')}_#{@argumenty.to_s}"
+      self.class.nazev.gsub ' ','_'
     end
 
   end

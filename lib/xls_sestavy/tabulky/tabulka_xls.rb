@@ -1,20 +1,20 @@
 # encoding: utf-8
 module XLSSestavy
-  class TabulkaXls < Tabulka
+  class Xls::TabulkaXls < Tabulka
 
     def initialize(sestava, worksheet, args={}, &block)
-      raise 'Sestava musí být typu XLS'
-      # @worksheet = worksheet
-      # super sestava, args, &block
+      raise 'Sestava musí být typu SestavaXls' unless sestava.kind_of? SestavaXls
+      @worksheet = worksheet
+      super sestava, args, &block
     end
 
     def vypis_radek_zahlavi(pozice)
       r, c = XLSSestavy::Xls.ciselne_souradnice(pozice).first
-      format_zahlavi = get_format @args[:format_zahlavi] || :radek_zahlavi
+      format_zahlavi = @sestava.get_format @args[:format_zahlavi] || :radek_zahlavi
 
       @sloupce.each_with_index do |s, i|
-        format = if s.arg[:xls_format].class==Hash
-                   format_hash = s.arg[:xls_format].clone
+        format = if s.opt(:xls_format).class==Hash
+                   format_hash = s.opt(:xls_format).clone
                    format_hash.delete :num_format
                    @sestava.alter_format format_zahlavi, format_hash
                  else
@@ -26,15 +26,15 @@ module XLSSestavy
 
     def vypis_radek_souctu(pozice, rozsah=nil)
       r, c = XLSSestavy::Xls.ciselne_souradnice(pozice).first
-      format_souctu = get_format @args[:format_souctu] || :radek_souctu
+      format_souctu = @sestava.get_format @args[:format_souctu] || :radek_souctu
 
       @sloupce.each_with_index do |s, i|
-        format_hash = {num_format: XLSSestavy::Xls.num_format(s)}
-        format_hash.merge! s.arg[:xls_format] if s.arg[:xls_format].class == Hash
+        format_hash = {num_format: XLSSestavy::Xls.num_format(s.opt(:datovy_typ))}
+        format_hash.merge! s.opt(:xls_format) if s.opt(:xls_format).class == Hash
         format = @sestava.alter_format format_souctu, format_hash
 
         pismeno = XLSSestavy::Xls.sloupec_pismeno c + i
-        case rozsah && s.arg[:radek_souctu]
+        case rozsah && s.opt(:radek_souctu)
           when :soucet
             formule = "SUBTOTAL(9,#{pismeno}#{rozsah.min}:#{pismeno}#{rozsah.max})"
             @worksheet.write_formula r, c+i, formule, format
@@ -51,10 +51,10 @@ module XLSSestavy
       r, c = XLSSestavy::Xls.ciselne_souradnice(pozice).first
       radku_vypsano = 0
 
-      format_dat = get_format @args[:format_dat] || :radky_dat
-      formaty = sloupce.map do |s|
-        format_hash = {num_format: XLSSestavy::Xls.num_format(s)}
-        format_hash.merge! s.arg[:xls_format] if s.arg[:xls_format].class == Hash
+      format_dat = @sestava.get_format @args[:format_dat] || :radky_dat
+      formaty = @sloupce.map do |s|
+        format_hash = {num_format: XLSSestavy::Xls.num_format(s.opt(:datovy_typ))}
+        format_hash.merge! s.opt(:xls_format) if s.opt(:xls_format).class == Hash
         @sestava.alter_format format_dat, format_hash
       end
 
@@ -77,16 +77,16 @@ module XLSSestavy
       r, c = XLSSestavy::Xls.ciselne_souradnice(pozice).first
 
       radky.each do |objekt|
-        sloupce.each_with_index do |s, i|
+        @sloupce.each_with_index do |s, i|
           hodnota = XLSSestavy::Xls.douprav_hodnotu_bunky s.hodnota_pro(objekt)
-          case s.arg[:datovy_typ]
+          case s.opt(:datovy_typ)
             when :cas, :datum
               @worksheet.write_date_time r, c+i, hodnota, formaty[i]
             else
               @worksheet.write r, c+i, hodnota, formaty[i]
           end
-          r += 1
         end
+        r += 1
       end
     end
 
@@ -102,7 +102,7 @@ module XLSSestavy
 
       #šířky sloupců
       @sloupce.each_with_index do |s, i|
-        sirka = s.arg[:sirka_sloupce]
+        sirka = s.opt(:sirka_sloupce)
         next unless sirka
         si = c + i
         @worksheet.set_column si, si, XLSSestavy::Xls.col_cm_to_p(sirka)

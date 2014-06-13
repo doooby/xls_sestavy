@@ -2,14 +2,18 @@
 module XLSSestavy
   class Tabulka
 
+    attr_reader :sestava
+
     def initialize(sestava, args={}, &block)
       @sestava = sestava
-      @sloupce = args[:sloupce] || []
       @args = args
+
+      @sloupce = args[:sloupce] || []
       yield self if block_given?
+      @sloupce.each{|s| s.tabulka = self}
     end
 
-    def pridej(*args, &block)
+    def sloupec(*args, &block)
       s = if args.first.is_a? Sloupec
         args.first
       else

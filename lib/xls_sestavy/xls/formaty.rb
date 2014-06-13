@@ -1,6 +1,6 @@
 # encoding: utf-8
 module XLSSestavy
-  module ExcelFormaty
+  module Xls::Formaty
 
     #do uchovávaného pole zapíše pod daným symbolem nový formát využívaný ostatními metodami
     def add_format(symbol, *args)
@@ -46,13 +46,13 @@ module XLSSestavy
           add_format symbol, size: 12, bold: 1, align: 'left'
         when :sestava_info
           add_format symbol, italic: 1
-        when :zahlavi
+        when :radek_zahlavi
           add_format symbol, bold: 1, border: 1, text_wrap: 1, align: 'center', bg_color: 22
-        when :data
+        when :radky_dat
           add_format symbol, text_wrap: 1, border: 1
-        when :data_stred
+        when :radky_dat_stred
           add_format symbol, text_wrap: 1, border: 1, align: 'center'
-        when :souctovy_radek
+        when :radek_souctu
           add_format symbol, align: 'right', bg_color: 42, bold: 1, border: 1
         when :default
           add_format symbol

@@ -1,6 +1,6 @@
 # encoding: utf-8
 module XLSSestavy
-  class DefiniceSloupcu < RadaSloupcu
+  class DefiniceSloupcu
 
     def self.[](klic)
       @instance ||= new

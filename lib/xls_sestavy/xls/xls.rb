@@ -65,8 +65,7 @@ module XLSSestavy
     end
 
     #klíč num_formátu pro excel
-    def self.num_format(sloupec)
-      sym = sloupec.arg(:datovy_typ)
+    def self.num_format(sym)
       sym && case sym
                when :cas; 'yyyy-MM-dd HH:mm:ss'
                when :datum; 'd. M. yyyy'
