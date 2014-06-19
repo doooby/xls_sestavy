@@ -2,6 +2,7 @@
 module XLSSestavy
   class Xls::TabulkaXls < Tabulka
 
+    # ukotvit_zahlavi, format_zahlavi, format_souctu, souctove_radky, format_dat, velikost_sady, vyska_zahlavi
     def initialize(sestava, worksheet, args={}, &block)
       raise 'Sestava musí být typu SestavaXls' unless sestava.kind_of? SestavaXls
       @worksheet = worksheet
@@ -110,8 +111,8 @@ module XLSSestavy
 
       #hlavičky
       vypis_radek_zahlavi pozice
-      r += 1
       @worksheet.set_row r, XLSSestavy::Xls.row_cm_to_p(@args[:vyska_zahlavi]  || 1.3)
+      r += 1
 
       #součtové řádky nad
       if souctove_radky==:nad || souctove_radky==:nad_pod

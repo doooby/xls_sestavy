@@ -4,6 +4,7 @@ module XLSSestavy
 
     attr_accessor :tabulka
 
+    # argumenty, fce, xls_format, datovy_typ, radek_souctu, sirka_sloupce
     def initialize(zahlavi, opts={}, &block)
       @options = opts.merge! zahlavi: zahlavi, fce: (opts[:fce] || block)
     end

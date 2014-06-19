@@ -21,9 +21,6 @@ module XLSSestavy
     end
 
     # přepsáno v podtřídách
-    def vypracovani; end
-
-    # přepsáno v podtřídách
     def po_vypracovani(f); end
 
     def to_s

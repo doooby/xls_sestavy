@@ -12,18 +12,18 @@ module XLSSestavy
     end
 
     def self.nastav_nazev(txt)
-      @nazev = txt
+      @nazev = txt.freeze
     end
 
     attr_reader :params
 
-    def initialize(params)
-      @params = zpracuj_params params
-      @cas_vytvoreni = Time.zone.now
+    def initialize(params=nil)
+      @params = zpracuj_params(params).freeze
+      @cas_vytvoreni = Time.zone.now.freeze
     end
 
     def zpracuj_params(params)
-      params
+      params || {}
     end
 
     def zpracuj
