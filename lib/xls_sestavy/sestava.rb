@@ -3,6 +3,7 @@ require "xls_sestavy/tabulky/tabulka"
 require "xls_sestavy/tabulky/sloupce/sloupec"
 require "xls_sestavy/tabulky/sloupce/preddefinovany_sloupce"
 require "xls_sestavy/tabulky/sloupce/definice_sloupcu"
+require "xls_sestavy/tabulky/promenne_radku"
 
 module XLSSestavy
   class Sestava
